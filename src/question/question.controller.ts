@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
 import { newQuestionDto } from 'src/dto/addQuestion.dto';
 import { QuestionService } from './question.service';
 
@@ -7,16 +7,20 @@ export class QuestionController {
     constructor(private questioService: QuestionService){}
 
     @Get()
-    getQuestions() :string{
-        return 'all questions';
+    async getQuestions(){
+        return this.questioService.findAll();
+    }
+
+    @Get(':id')
+    async getQuestion(@Param('id') id:string){
+        return this.questioService.findQuestion(id);
     }
 
     @Post('add')
     AddQuestion(@Body() newQuestion: newQuestionDto){
-        // console.log(newQuestion);
         const arr = newQuestion.questions;
-        console.log(newQuestion);
-        // const optObj = JSON.parse(arr[0]);
-        console.log(arr[0].title)
+        this.questioService.saveQuestion(newQuestion);
+        // console.log(newQuestion);
+        // console.log(arr[0].title)
     }
 }

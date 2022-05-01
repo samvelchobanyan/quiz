@@ -7,7 +7,13 @@ export class Options {
     edId: number;
 
     @Column()
-    name:string
+    title:string
+
+    @Column()
+    redirect:number
+
+    @Column()
+    rate:number
 
     @ManyToOne(type => Questions, quiestion => quiestion.options)
     quiestion: Questions

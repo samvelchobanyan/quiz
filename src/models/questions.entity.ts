@@ -9,6 +9,6 @@ export class Questions {
     @Column()
     name: string | null;
     
-    @OneToMany(type => Options, option => option.quiestion)
+    @OneToMany(type => Options, option => option.quiestion,{ cascade: ['insert', 'update'] })
     options: Options[]
 }
